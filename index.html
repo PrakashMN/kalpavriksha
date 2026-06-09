@@ -13,16 +13,24 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
   <style>
     :root {
-      --primary: #367EC1;
-      --primary-dark: #2B6CB0;
-      --accent: #F76A25;
-      --accent-light: #FF8C42;
-      --cream: #F8F5F0;
-      --charcoal: #212529;
+      /* Logo Colors */
+      --primary: #DCC070;          /* Main Gold */
+      --primary-dark: #B89B4B;     /* Deep Gold */
+
+      --accent: #888010;           /* Olive Green */
+      --accent-light: #A6A02A;     /* Light Olive */
+
+      /* Supporting Colors */
+      --cream: #F8F2E3;            /* Warm Ivory */
+      --charcoal: #1F1C16;         /* Rich Dark Brown-Black */
       --white: #FFFFFF;
-      --glass-bg: rgba(255,255,255,0.08);
-      --glass-border: rgba(255,255,255,0.15);
-      --shadow: 0 8px 32px rgba(0,0,0,0.12);
+
+      /* Glass Effects */
+      --glass-bg: rgba(220, 192, 112, 0.08);
+      --glass-border: rgba(220, 192, 112, 0.18);
+
+      /* Shadows */
+      --shadow: 0 8px 32px rgba(31, 28, 22, 0.15);
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { overflow-x: hidden; scroll-behavior: smooth; }
@@ -92,8 +100,12 @@
     .hero-bg {
       position: absolute;
       inset: 0;
-      background: url('images/ChatGPT Image Jun 5, 2026, 03_41_05 PM.png') center center / cover no-repeat;
       z-index: 0;
+    }
+    .hero-bg video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
     .hero-overlay {
       position: absolute;
@@ -125,7 +137,7 @@
     .hero h1 {
       font-size: clamp(2.4rem, 6vw, 4.2rem);
       font-weight: 600;
-      color: var(--white);
+      color: var(--primary);
       line-height: 1.15;
       text-shadow: 0 2px 20px rgba(0,0,0,0.3);
     }
@@ -136,12 +148,29 @@
       max-width: 640px;
       margin-bottom: 0;
     }
+    .hero-logos {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
     .hero-logo {
       display: block;
       max-width: 150px;
       height: 130px;
-      margin-bottom: 2rem;
       filter: brightness(1.05) drop-shadow(0 2px 12px rgba(0,0,0,0.25));
+    }
+    .hero-logo-bhoomi {
+      max-width: 130px;
+      height: auto;
+    }
+    .hero-logo-sep {
+      color: rgba(255,255,255,0.5);
+      font-size: 1.3rem;
+      font-weight: 500;
+      letter-spacing: 2px;
     }
     .hero-highlights {
       display: grid;
@@ -184,13 +213,13 @@
       display: inline-flex;
       align-items: center;
       gap: 0.6rem;
-      box-shadow: 0 8px 24px rgba(247,106,37,0.3);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
     }
     .btn-gold:hover {
-      background: #E85D1A;
-      color: var(--white);
+      background: var(--primary);
+      color: var(--charcoal);
       transform: translateY(-2px);
-      box-shadow: 0 12px 32px rgba(247,106,37,0.4);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.3);
     }
     .btn-outline-light-custom {
       background: rgba(255,255,255,0.08);
@@ -270,6 +299,40 @@
     .feature-tag i { color: var(--accent); }
 
     /* ── Why Invest ── */
+    .why-scroll {
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding: 0 0 4px;
+    }
+    .why-scroll::-webkit-scrollbar { display: none; }
+    .why-scroll .why-card {
+      scroll-snap-align: start;
+      flex: 0 0 100vw;
+      min-width: 0;
+    }
+    .why-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 1.25rem;
+    }
+    .why-dots .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #d4d4d4;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .why-dots .dot.active {
+      background: var(--accent);
+      width: 24px;
+      border-radius: 4px;
+    }
     .why-card {
       background: var(--white);
       border-radius: 16px;
@@ -303,69 +366,58 @@
       line-height: 1.6;
       font-weight: 300;
     }
-
-    /* ── Amenities ── */
-    .amenities-grid {
-      display: grid;
-      grid-template-columns: repeat(1, 1fr);
-      gap: 24px;
-    }
     @media (min-width: 768px) {
-      .amenities-grid { grid-template-columns: repeat(2, 1fr); }
+      .why-scroll {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+        overflow-x: visible;
+        scroll-snap-type: none;
+        padding-bottom: 0;
+      }
+      .why-scroll .why-card {
+        flex: unset;
+        min-width: unset;
+      }
+      .why-dots { display: none; }
     }
     @media (min-width: 992px) {
-      .amenities-grid { grid-template-columns: repeat(3, 1fr); }
+      .why-scroll { grid-template-columns: repeat(4, 1fr); }
     }
-    @media (min-width: 1200px) {
-      .amenities-grid { grid-template-columns: repeat(4, 1fr); }
-    }
-    .amenity-card {
-      background: var(--white);
-      border: 1px solid #f1f5f9;
-      border-radius: 16px;
-      padding: 1.5rem;
-      box-shadow: 0 4px 16px rgba(30,41,59,0.06);
-      transition: all 0.3s;
-    }
-    .amenity-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgba(30,41,59,0.1);
-    }
-    .amenity-card .icon-box {
-      width: 48px;
-      height: 48px;
-      background: #FFF7ED;
-      border-radius: 12px;
+
+    /* ── Amenities (Badge Style) ── */
+    .amenities-wrap {
       display: flex;
-      align-items: center;
+      flex-wrap: wrap;
       justify-content: center;
-      margin-bottom: 1.25rem;
+      gap: 12px;
+    }
+    .amenity-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--white);
+      border: 1px solid #e2e8f0;
+      padding: 0.6rem 1.2rem;
+      border-radius: 50px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: #334155;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
       transition: all 0.3s;
+      cursor: default;
     }
-    .amenity-card:hover .icon-box {
-      background: var(--accent);
+    .amenity-badge:hover {
+      border-color: var(--accent);
+      box-shadow: 0 4px 16px rgba(136,128,16,0.12);
+      transform: translateY(-2px);
     }
-    .amenity-card .icon-box i {
-      font-size: 1.2rem;
+    .amenity-badge i {
+      font-size: 1rem;
       color: var(--accent);
-      transition: all 0.3s;
     }
-    .amenity-card:hover .icon-box i {
-      color: white;
-    }
-    .amenity-card .title {
-      font-family: 'Poppins', sans-serif;
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: #1E293B;
-      margin-bottom: 0.5rem;
-    }
-    .amenity-card .desc {
-      font-size: 0.85rem;
-      color: #64748b;
-      line-height: 1.6;
-      font-weight: 300;
-      margin: 0;
+    @media (min-width: 768px) {
+      .amenity-badge { font-size: 0.95rem; padding: 0.7rem 1.5rem; }
     }
 
     /* ── Layout ── */
@@ -427,7 +479,7 @@
       box-shadow: 0 8px 24px rgba(247,106,37,0.3);
     }
     .btn-download:hover {
-      background: #E85D1A;
+      background: #DCC070;
       color: var(--white);
       transform: translateY(-2px);
       box-shadow: 0 12px 32px rgba(247,106,37,0.4);
@@ -621,7 +673,7 @@
 
     /* ── Lead CTA ── */
     .lead-cta {
-      background: linear-gradient(135deg, var(--primary) 0%, #1a365d 100%);
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
       border-radius: 24px;
       padding: 4rem 2rem;
       text-align: center;
@@ -632,7 +684,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background-image: radial-gradient(circle at 20% 50%, rgba(247,106,37,0.12) 0%, transparent 50%),
+      background-image: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.08) 0%, transparent 50%),
                         radial-gradient(circle at 80% 50%, rgba(255,255,255,0.06) 0%, transparent 50%);
     }
     .lead-cta .pattern-dots {
@@ -681,7 +733,7 @@
       color: rgba(255,255,255,0.7);
       padding: 3rem 0 1.5rem;
     }
-    .footer h5 { color: var(--accent); }
+    .footer h5 { color: var(--primary); }
     .footer a { color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.3s; }
     .footer a:hover { color: var(--accent); }
     .social-icon {
@@ -744,7 +796,10 @@
     .hero h1 { font-size: 1.65rem; line-height: 1.1; }
     .hero .subheadline { font-size: 0.82rem; max-width: 100%; }
     .hero-badge { font-size: 0.6rem; padding: 4px 10px; letter-spacing: 1px; }
-    .hero-logo { max-width: 95px; margin-bottom: 0.7rem; }
+    .hero-logos { gap: 0.7rem; margin-bottom: 1rem; }
+    .hero-logo { max-width: 95px; }
+    .hero-logo-bhoomi { max-width: 100px; }
+    .hero-logo-sep { font-size: 0.85rem; }
     .hero-highlights {
       grid-template-columns: 1fr;
       gap: 0.3rem;
@@ -774,17 +829,15 @@
     .d-flex.flex-wrap.gap-4.mt-3 { gap: 0.75rem !important; }
     .d-flex.flex-wrap.gap-4.mt-3 > div { width: calc(50% - 0.75rem); }
 
-    .why-card { padding: 1rem; }
+    .why-scroll { gap: 12px; }
+    .why-scroll .why-card { flex: 0 0 calc(100vw - 32px); padding: 1.25rem; }
     .why-icon { width: 42px; height: 42px; margin-bottom: 0.85rem; }
     .why-icon i { font-size: 1.05rem; }
     .why-card h5 { font-size: 1rem; }
     .why-card p { font-size: 0.8rem; }
 
-    .amenity-card { padding: 0.85rem; }
-    .amenity-card .icon-box { width: 38px; height: 38px; margin-bottom: 0.85rem; }
-    .amenity-card .icon-box i { font-size: 0.95rem; }
-    .amenity-card .title { font-size: 0.88rem; }
-    .amenity-card .desc { font-size: 0.76rem; }
+    .amenity-badge { font-size: 0.78rem; padding: 0.45rem 0.95rem; gap: 0.4rem; }
+    .amenity-badge i { font-size: 0.85rem; }
 
     .layout-preview { padding: 0.75rem; border-radius: 14px; }
     .layout-preview p { font-size: 0.72rem; }
@@ -847,7 +900,10 @@
       .hero .container { padding: 0 1rem; }
       .hero h1 { font-size: 2rem; }
       .hero .subheadline { font-size: 0.95rem; }
+      .hero-logos { gap: 1rem; margin-bottom: 1.5rem; }
       .hero-logo { max-width: 120px; }
+      .hero-logo-bhoomi { max-width: 120px; }
+      .hero-logo-sep { font-size: 1rem; }
       .hero-highlights { grid-template-columns: 1fr 1fr; gap: 0.5rem 1rem; }
       .hero-highlights span { font-size: 0.84rem; }
       .hero-buttons { flex-direction: row; width: auto; gap: 1rem; }
@@ -856,7 +912,7 @@
       .section-title { font-size: 1.6rem; }
       .section-subtitle { font-size: 0.95rem; }
 
-      .why-card { padding: 1.25rem; }
+      .why-scroll .why-card { flex: unset; min-width: unset; padding: 1.25rem; }
       .amenity-card { padding: 1rem; }
       .amenity-card .title { font-size: 0.95rem; }
 
@@ -892,7 +948,10 @@
 
       .hero { min-height: 92vh; }
       .hero h1 { font-size: clamp(2.2rem, 4vw, 3rem); }
+      .hero-logos { gap: 1.2rem; margin-bottom: 2rem; }
       .hero-logo { max-width: 150px; }
+      .hero-logo-bhoomi { max-width: 170px; }
+      .hero-logo-sep { font-size: 1.3rem; }
       .hero .subheadline { font-size: 1.05rem; }
       .hero-overlay {
         background: linear-gradient(to right, rgba(15,23,42,0.9) 0%, rgba(15,23,42,0.6) 50%, rgba(15,23,42,0.1) 100%);
@@ -901,7 +960,7 @@
 
       .section-title { font-size: 1.8rem; }
       .about-img-wrap { min-height: 340px; }
-      .why-card { padding: 1.5rem; }
+      .why-scroll .why-card { flex: unset; min-width: unset; padding: 1.5rem; }
       .amenity-card { padding: 1.25rem; }
 
       .calc-card { padding: 2rem; }
@@ -925,6 +984,7 @@
     @media (min-width: 992px) {
       .hero { min-height: 100vh; }
       .hero h1 { font-size: clamp(2.4rem, 6vw, 4.2rem); }
+      .hero-logos { transform: translateX(-230px); }
       .hero-highlights { grid-template-columns: 1fr 1fr; gap: 0.75rem 1.5rem; }
       .hero-inner { max-width: 720px; }
       .hero-highlights { max-width: 540px; }
@@ -944,11 +1004,18 @@
 
 <!-- ═══ HERO ═══ -->
 <section class="hero" id="home">
-  <div class="hero-bg"></div>
+  <div class="hero-bg">
+    <video autoplay muted loop playsinline poster="images/ChatGPT Image Jun 5, 2026, 03_41_05 PM.png">
+      <source src="images/hero-clip.mp4" type="video/mp4">
+    </video>
+  </div>
   <div class="hero-overlay"></div>
   <div class="container">
     <div class="hero-inner" data-aos="fade-up" data-aos-duration="1000">
-      <img src="images/kalpavruksha.png" alt="Kalpavruksha Estate" class="hero-logo" />
+      <div class="hero-logos">
+        <img src="images/kalpavruksha.png" alt="Kalpavruksha Estate" class="hero-logo" />
+        <img src="images/Bhoomi_footer.png" alt="Bhoomi Braahmi" class="hero-logo hero-logo-bhoomi" />
+      </div>
       <h1>Own Your Piece of Nature <br> at Kalpavruksha Estate</h1>
       <p class="subheadline mt-3">
         Premium NA Plots Near Chikhale Falls, Jamboti
@@ -960,14 +1027,6 @@
         <span><i class="bi bi-check-circle-fill"></i> Starting at 580/sq.ft</span>
       </div>
       <div class="d-flex flex-wrap gap-4 mt-4" style="max-width:540px;">
-        <div>
-          <span class="d-block text-white-50 small text-uppercase" style="font-size:0.65rem;letter-spacing:1px;font-weight:600;">Developed By</span>
-          <img src="images/Bhoomi_footer.png" alt="Bhoomi Braahmi" style="height:60px;width:auto;margin-top:2px;filter:brightness(1.1);" />
-        </div>
-        <div>
-          <span class="d-block text-white-50 small text-uppercase" style="font-size:0.65rem;letter-spacing:1px;font-weight:600;">Marketed By</span>
-          <a href="https://www.mymane.in/" target="_blank"><img src="images/MyMane.png" alt="MyMane" style="height:28px;width:auto;margin-top:18px;filter:brightness(1.1);" /></a>
-        </div>
       </div>
       <div class="hero-buttons">
         <a href="#contact" class="btn-gold"><i class="bi bi-calendar-check"></i> Book Site Visit</a>
@@ -995,14 +1054,6 @@
           development offering legally approved NA plots with modern infrastructure and serene surroundings.
         </p>
         <div class="d-flex flex-wrap gap-4 mt-3 mb-4">
-          <div>
-            <span class="d-block text-muted small text-uppercase" style="font-size:0.7rem;letter-spacing:1px;font-weight:600;">Developed By</span>
-            <img src="images/Bhoomi_Braahmi-removebg-preview.png" alt="Bhoomi Braahmi" style="height:60px;width:auto;margin-top:4px;" />
-          </div>
-          <div>
-            <span class="d-block text-muted small text-uppercase" style="font-size:0.7rem;letter-spacing:1px;font-weight:600;">Marketed By</span>
-            <a href="https://www.mymane.in/" target="_blank"><img src="images/MyMane.png" alt="MyMane" style="height:32px;width:auto;margin-top:18px;" /></a>
-          </div>
         </div>
         <div class="d-flex flex-wrap gap-2">
           <span class="feature-tag"><i class="bi bi-map"></i> NA Plots</span>
@@ -1022,37 +1073,49 @@
   <div class="container py-5">
     <div class="text-center" data-aos="fade-up">
       <span class="hero-badge" style="background:var(--accent);color:var(--white);">Why Invest Here</span>
-      <h2 class="section-title" style="color:#367EC1;">Your Smartest Land Decision</h2>
+      <h2 class="section-title" style="color:var(--primary);">Your Smartest Land Decision</h2>
       <div class="gold-accent gold-accent-center"></div>
       <p class="section-subtitle">Backed by clear titles, growing demand, and nature at your doorstep.</p>
     </div>
-    <div class="row g-4 mt-2">
-      <div class="col-md-6 col-lg-3" data-aos="zoom-in" data-aos-delay="0">
-        <div class="why-card">
-          <div class="why-icon"><i class="bi bi-flower1"></i></div>
-          <h5>Nature Paradise</h5>
-          <p>Surrounded by forests and waterfalls — wake up to untouched natural beauty every day.</p>
-        </div>
+    <div class="why-scroll mt-2">
+      <div class="why-card" data-aos="zoom-in" data-aos-delay="0">
+        <div class="why-icon"><i class="bi bi-flower1"></i></div>
+        <h5>Nature Paradise</h5>
+        <p>Surrounded by forests and waterfalls — wake up to untouched natural beauty every day.</p>
       </div>
-      <div class="col-md-6 col-lg-3" data-aos="zoom-in" data-aos-delay="100">
-        <div class="why-card">
-          <div class="why-icon"><i class="bi bi-graph-up-arrow"></i></div>
-          <h5>High Growth Potential</h5>
-          <p>Developing tourism corridor means your land value appreciates faster.</p>
-        </div>
+      <div class="why-card" data-aos="zoom-in" data-aos-delay="100">
+        <div class="why-icon"><i class="bi bi-graph-up-arrow"></i></div>
+        <h5>High Growth Potential</h5>
+        <p>Developing tourism corridor means your land value appreciates faster.</p>
       </div>
-      <div class="col-md-6 col-lg-3" data-aos="zoom-in" data-aos-delay="200">
-        <div class="why-card">
-          <div class="why-icon"><i class="bi bi-file-earmark-text"></i></div>
-          <h5>Clear Documentation</h5>
-          <p>NA + Layout + KJP Approved — total peace of mind with every plot.</p>
-        </div>
+      <div class="why-card" data-aos="zoom-in" data-aos-delay="200">
+        <div class="why-icon"><i class="bi bi-file-earmark-text"></i></div>
+        <h5>Clear Documentation</h5>
+        <p>NA + Layout + KJP Approved — total peace of mind with every plot.</p>
       </div>
-      <div class="col-md-6 col-lg-3" data-aos="zoom-in" data-aos-delay="300">
-        <div class="why-card">
-          <div class="why-icon"><i class="bi bi-bank2"></i></div>
-          <h5>Bank Approved</h5>
-          <p>Easy financing available through nationalized banks — hassle-free purchase.</p>
+      <div class="why-card" data-aos="zoom-in" data-aos-delay="300">
+        <div class="why-icon"><i class="bi bi-bank2"></i></div>
+        <h5>Bank Approved</h5>
+        <p>Easy financing available through nationalized banks — hassle-free purchase.</p>
+      </div>
+    </div>
+    <div class="why-dots"></div>
+  </div>
+</section>
+
+<!-- ═══ VIDEO OVERVIEW ═══ -->
+<section id="video" class="py-5" style="background:var(--cream);">
+  <div class="container py-5">
+    <div class="text-center" data-aos="fade-up">
+      <span class="hero-badge" style="background:var(--accent);color:var(--white);">Video Overview</span>
+      <h2 class="section-title" style="color:var(--primary);">Take a Virtual Tour</h2>
+      <div class="gold-accent gold-accent-center"></div>
+      <p class="section-subtitle">See the beauty of Kalpavruksha Estate for yourself.</p>
+    </div>
+    <div class="row justify-content-center mt-3" data-aos="fade-up" data-aos-delay="100">
+      <div class="col-lg-8">
+        <div class="video-wrap" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:16px;box-shadow:var(--shadow);">
+          <iframe src="https://www.youtube.com/embed/OGLpGbv7ME4?si=64R7Uu90mto_fuwA" title="Kalpavruksha Estate Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
         </div>
       </div>
     </div>
@@ -1064,71 +1127,23 @@
   <div class="container py-5">
     <div class="text-center" data-aos="fade-up">
       <span class="hero-badge" style="background:var(--accent);color:var(--white);">Amenities</span>
-      <h2 class="section-title" style="color:#367EC1;">Premium Infrastructure</h2>
+      <h2 class="section-title" style="color:var(--primary);">Premium Infrastructure</h2>
       <div class="gold-accent gold-accent-center"></div>
-      <p class="section-subtitle">Designed for comfort, security, and a life well-lived.</p>
+      <p class="section-subtitle">Everything you need for modern living, wrapped in nature.</p>
     </div>
-    <div class="amenities-grid mt-2">
-      <div class="amenity-card" data-aos="fade-up" data-aos-delay="0">
-        <div class="icon-box"><i class="bi bi-door-open"></i></div>
-        <h3 class="title">Grand Entrance</h3>
-        <p class="desc">A welcoming gateway that sets the tone for premium living.</p>
-      </div>
-      <div class="amenity-card" data-aos="fade-up" data-aos-delay="50">
-        <div class="icon-box"><i class="bi bi-signpost-2"></i></div>
-        <h3 class="title">CC Roads &amp; Drains</h3>
-        <p class="desc">Smooth, durable roads with proper drainage for every season.</p>
-      </div>
-      <div class="amenity-card" data-aos="fade-up" data-aos-delay="100">
-        <div class="icon-box"><i class="bi bi-lightbulb"></i></div>
-        <h3 class="title">Street Lights</h3>
-        <p class="desc">Well-lit pathways ensuring safe and beautiful evening walks.</p>
-      </div>
-      <div class="amenity-card" data-aos="fade-up" data-aos-delay="150">
-        <div class="icon-box"><i class="bi bi-droplet"></i></div>
-        <h3 class="title">Underground Water Supply</h3>
-        <p class="desc">Uninterrupted water — no tankers, no worry.</p>
-      </div>
-      <div class="amenity-card" data-aos="fade-up" data-aos-delay="200">
-        <div class="icon-box"><i class="bi bi-lightning-charge"></i></div>
-        <h3 class="title">Underground Electricity</h3>
-        <p class="desc">Clean and clutter-free infrastructure with reliable power.</p>
-      </div>
-      <div class="amenity-card" data-aos="fade-up" data-aos-delay="250">
-        <div class="icon-box"><i class="bi bi-shield-lock"></i></div>
-        <h3 class="title">CCTV Security</h3>
-        <p class="desc">24/7 monitored environment for peace of mind.</p>
-      </div>
-      <div class="amenity-card" data-aos="fade-up" data-aos-delay="300">
-        <div class="icon-box"><i class="bi bi-tree"></i></div>
-        <h3 class="title">Landscaped Avenue Plantation</h3>
-        <p class="desc">Shaded avenues and green corridors throughout the estate.</p>
-      </div>
-      <div class="amenity-card" data-aos="fade-up" data-aos-delay="350">
-        <div class="icon-box"><i class="bi bi-balloon"></i></div>
-        <h3 class="title">Children's Garden</h3>
-        <p class="desc">Safe, open green spaces where kids can explore nature.</p>
-      </div>
-      <div class="amenity-card" data-aos="fade-up" data-aos-delay="400">
-        <div class="icon-box"><i class="bi bi-person-walking"></i></div>
-        <h3 class="title">Walking Track</h3>
-        <p class="desc">Morning jogs and evening strolls amidst fresh air.</p>
-      </div>
-      <div class="amenity-card" data-aos="fade-up" data-aos-delay="450">
-        <div class="icon-box"><i class="bi bi-cup-hot"></i></div>
-        <h3 class="title">Restaurant Facility</h3>
-        <p class="desc">Dine without stepping out — a club-style restaurant on site.</p>
-      </div>
-      <div class="amenity-card" data-aos="fade-up" data-aos-delay="500">
-        <div class="icon-box"><i class="bi bi-building-lock"></i></div>
-        <h3 class="title">Compound &amp; Security</h3>
-        <p class="desc">Gated community with trained security personnel.</p>
-      </div>
-      <div class="amenity-card" data-aos="fade-up" data-aos-delay="550">
-        <div class="icon-box"><i class="bi bi-water"></i></div>
-        <h3 class="title">Well</h3>
-        <p class="desc">A traditional well ensuring a dependable water source for the community.</p>
-      </div>
+    <div class="amenities-wrap mt-2">
+      <span class="amenity-badge" data-aos="fade-up" data-aos-delay="0"><i class="bi bi-door-open"></i> Grand Entrance</span>
+      <span class="amenity-badge" data-aos="fade-up" data-aos-delay="50"><i class="bi bi-signpost-2"></i> CC Roads &amp; Drains</span>
+      <span class="amenity-badge" data-aos="fade-up" data-aos-delay="100"><i class="bi bi-lightbulb"></i> Street Lights</span>
+      <span class="amenity-badge" data-aos="fade-up" data-aos-delay="150"><i class="bi bi-droplet"></i> Underground Water Supply</span>
+      <span class="amenity-badge" data-aos="fade-up" data-aos-delay="200"><i class="bi bi-lightning-charge"></i> Underground Electricity</span>
+      <span class="amenity-badge" data-aos="fade-up" data-aos-delay="250"><i class="bi bi-shield-lock"></i> CCTV Security</span>
+      <span class="amenity-badge" data-aos="fade-up" data-aos-delay="300"><i class="bi bi-tree"></i> Avenue Plantation</span>
+      <span class="amenity-badge" data-aos="fade-up" data-aos-delay="350"><i class="bi bi-balloon"></i> Children's Garden</span>
+      <span class="amenity-badge" data-aos="fade-up" data-aos-delay="400"><i class="bi bi-person-walking"></i> Walking Track</span>
+      <span class="amenity-badge" data-aos="fade-up" data-aos-delay="450"><i class="bi bi-cup-hot"></i> Restaurant Facility</span>
+      <span class="amenity-badge" data-aos="fade-up" data-aos-delay="500"><i class="bi bi-building-lock"></i> Compound &amp; Security</span>
+      <span class="amenity-badge" data-aos="fade-up" data-aos-delay="550"><i class="bi bi-water"></i> Well</span>
     </div>
   </div>
 </section>
@@ -1138,7 +1153,7 @@
   <div class="container py-5">
     <div class="text-center" data-aos="fade-up">
       <span class="hero-badge" style="background:var(--accent);color:var(--white);">Plot Layout</span>
-      <h2 class="section-title" style="color:#367EC1;">Choose Your Plot</h2>
+      <h2 class="section-title" style="color:var(--primary);">Choose Your Plot</h2>
       <div class="gold-accent gold-accent-center"></div>
       <p class="section-subtitle">Explore available plots with dimensions and download the full layout.</p>
     </div>
@@ -1153,7 +1168,7 @@
       <div class="col-lg-4" data-aos="fade-left">
         <div class="layout-card">
           <div class="pdf-icon"><i class="bi bi-filetype-pdf"></i></div>
-          <h5 class="mb-3 fw-bold" style="color:#1E293B;">Download Layout PDF</h5>
+          <h5 class="mb-3 fw-bold" style="color:var(--primary);">Download Layout PDF</h5>
           <p class="text-muted small mb-4" style="font-weight:300;">Get the detailed plot layout with dimensions, plot numbers, and pricing.</p>
           <a href="images/Kalpavruksha Project (1).pdf" class="btn-download" target="_blank"><i class="bi bi-download"></i> Download Layout</a>
         </div>
@@ -1169,7 +1184,7 @@
   <div class="container py-5">
     <div class="text-center" data-aos="fade-up">
       <span class="hero-badge" style="background:var(--accent);color:var(--white);">Location</span>
-      <h2 class="section-title" style="color:#367EC1;">Location Advantage</h2>
+      <h2 class="section-title" style="color:var(--primary);">Location Advantage</h2>
       <div class="gold-accent gold-accent-center"></div>
       <p class="section-subtitle">Situated in the heart of nature, yet well-connected.</p>
     </div>
@@ -1206,7 +1221,7 @@
   <div class="container py-5">
     <div class="text-center" data-aos="fade-up">
       <span class="hero-badge" style="background:var(--accent);color:var(--white);">Calculator</span>
-      <h2 class="section-title" style="color:#367EC1;">Estimate Your Investment</h2>
+      <h2 class="section-title" style="color:var(--primary);">Estimate Your Investment</h2>
       <div class="gold-accent gold-accent-center"></div>
       <p class="section-subtitle">See the total cost instantly. Then get a detailed cost sheet.</p>
     </div>
@@ -1283,8 +1298,7 @@
         <img src="images/kalpavruksha.png" alt="Kalpavruksha Estate" style="max-width:140px;height:100px;margin-bottom:0.5rem;" />
         <p class="small">Premium NA plots near Chikhale Falls, Jamboti — where nature meets modern living.</p>
         <div class="d-flex align-items-start gap-3 mt-2 mb-2">
-          <div><span class="small" style="color:rgba(255,255,255,0.5);font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;font-weight:600;">Developed By</span><br /><img src="images/Bhoomi_footer.png" alt="Bhoomi Braahmi" style="height:60px;width:auto;margin-top:6px;" /></div>
-          <div><span class="small" style="color:rgba(255,255,255,0.5);font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;font-weight:600;">Marketed By</span><br /><a href="https://www.mymane.in/" target="_blank"><img src="images/MyMane.png" alt="MyMane" style="height:22px;width:auto;margin-top:28px;" /></a></div>        </div>
+        </div>
         <div class="d-flex mt-2">
           <a href="https://www.facebook.com/mymane.in" class="social-icon"><i class="bi bi-facebook"></i></a>
           <a href="https://www.instagram.com/mymane.in_belagavi" class="social-icon"><i class="bi bi-instagram"></i></a>
@@ -1312,7 +1326,6 @@
       </div>
     </div>
     <hr class="mt-4" style="border-color:rgba(255,255,255,0.1);" />
-    <p class="text-center small mb-0">&copy; 2026 Kalpavruksha Estate &mdash; Developed by BHOOMI BRAAHMI &amp; Marketed by MyMane. All rights reserved.</p>
   </div>
 </footer>
 
@@ -1371,6 +1384,34 @@
   customInput.addEventListener('input', calculateTotal);
   calculateTotal();
 
+  // ── Why Invest Dots ──
+  (function() {
+    const scroll = document.querySelector('.why-scroll');
+    const dotsWrap = document.querySelector('.why-dots');
+    if (!scroll || !dotsWrap) return;
+    const cards = scroll.querySelectorAll('.why-card');
+    cards.forEach((_, i) => {
+      const dot = document.createElement('span');
+      dot.className = 'dot' + (i === 0 ? ' active' : '');
+      dot.addEventListener('click', () => {
+        cards[i].scrollIntoView({ behavior: 'smooth', inline: 'start' });
+      });
+      dotsWrap.appendChild(dot);
+    });
+    let ticking = false;
+    scroll.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const idx = Math.round(scroll.scrollLeft / (cards[0].offsetWidth + 16));
+          dotsWrap.querySelectorAll('.dot').forEach((d, i) => {
+            d.classList.toggle('active', i === idx);
+          });
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  })();
 
 </script>
 </body>
