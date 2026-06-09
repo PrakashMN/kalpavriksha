@@ -506,13 +506,13 @@
       border: none;
       transition: all 0.3s;
       text-decoration: none;
-      box-shadow: 0 8px 24px rgba(247,106,37,0.3);
+      box-shadow: 0 8px 24px rgba(247, 107, 37, 0);
     }
     .btn-download:hover {
       background: #DCC070;
       color: var(--white);
       transform: translateY(-2px);
-      box-shadow: 0 12px 32px rgba(247,106,37,0.4);
+      box-shadow: 0 12px 32px rgba(251, 221, 68, 0);
     }
 
     /* ── Location ── */
@@ -1256,15 +1256,8 @@
       <div class="gold-accent gold-accent-center"></div>
       <p class="section-subtitle">Situated in the heart of nature, yet well-connected.</p>
     </div>
-    <div class="row g-5 mt-2">
-      <div class="col-lg-7" data-aos="fade-right">
-        <div class="map-wrap">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3841.6299891213553!2d74.2476476!3d15.6646798!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bbf75b3c25cace1%3A0xc87545357828ec38!2sKalpavruksha%20Estate%2C%20near%20chikhale%20falls%2C%20karnataka!5e0!3m2!1sen!2sin!4v1780735059193!5m2!1sen!2sin"
-            loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-      </div>
-      <div class="col-lg-5" data-aos="fade-left">
+    <div class="row justify-content-center mt-2">
+      <div class="col-lg-6" data-aos="fade-up">
         <div class="location-card">
           <h5 class="fw-bold" style="color:#1E293B;font-family:'Playfair Display',serif;font-size:1.5rem;">Nearby Attractions</h5>
           <div class="gold-accent"></div>
@@ -1349,9 +1342,6 @@
         </a>
         <a href="https://wa.me/918277100727?text=Hi%20Kalpavruksha%20Estate" target="_blank" class="btn-gold">
           <i class="bi bi-whatsapp"></i> WhatsApp
-        </a>
-        <a href="https://maps.google.com/?q=Kalpavruksha Estate, near chikhale falls, karnataka" target="_blank" class="btn-outline-light-custom" style="border-color:var(--white);color:var(--white);">
-          <i class="bi bi-geo-alt-fill"></i> Get Directions
         </a>
       </div>
     </div>
@@ -1480,6 +1470,21 @@
       }
     });
   })();
+
+  // ── Video Fullscreen on Tap (mobile only) ──
+  if (window.innerWidth < 768) {
+    document.querySelector('#video video')?.addEventListener('click', function() {
+      if (this.webkitEnterFullscreen) {
+        this.webkitEnterFullscreen();
+      } else if (this.requestFullscreen) {
+        this.requestFullscreen().then(() => {
+          if (screen.orientation?.lock) screen.orientation.lock('landscape').catch(() => {});
+        });
+      } else if (this.webkitRequestFullscreen) {
+        this.webkitRequestFullscreen();
+      }
+    });
+  }
 
 </script>
 </body>
